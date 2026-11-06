@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>𝑴𝒏3𝒎 Jobs</title>
+<style>
+:root{--navy:#101b32;--navy2:#203454;--gold:#e7b84b;--bg:#f5f7fb;--ink:#172033}
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:var(--navy);color:white;padding:18px 5%;border-bottom:3px solid var(--gold)}nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.brand{font-size:24px;color:var(--gold);font-weight:bold}nav a{color:white;text-decoration:none;margin:0 7px}
+.hero{text-align:center;padding:48px 5%;color:white;background:linear-gradient(130deg,var(--navy),var(--navy2))}.hero h1{font-size:32px;margin:0 0 12px}.hero p{line-height:1.9;color:#e4e9f2}.hero b{color:var(--gold)}
+.wrap{max-width:1100px;margin:auto;padding:24px 5%}.filters,.panel,.job,.formbox{background:white;border:1px solid #e4e8f0;border-radius:14px;padding:17px;box-shadow:0 5px 18px #101b320c}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px}input,select,textarea{width:100%;padding:12px;border:1px solid #d7deea;border-radius:9px;font:inherit;background:white}button{border:0;border-radius:9px;padding:11px 17px;background:var(--gold);color:#182238;font:inherit;font-weight:bold;cursor:pointer}.jobs{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:14px;margin-top:16px}.job h3{margin:8px 0;color:var(--navy)}.muted{color:#697386;font-size:13px;line-height:1.8}.tag{display:inline-block;background:#fff4d7;color:#705313;border-radius:20px;padding:5px 9px;font-size:12px}.section-title{color:var(--navy);margin:28px 0 13px}.formbox{max-width:720px;margin:25px auto}.formbox form,.admin form{display:grid;gap:10px}.notice{background:#fff4d7;padding:12px;border-radius:9px;font-size:13px;line-height:1.8;margin-top:12px}.status{font-size:13px;margin:10px 0;color:#536078}.admin{margin-top:25px}.admin-row{border-top:1px solid #e8ebf1;padding:12px 0}.hidden{display:none!important}footer{text-align:center;padding:23px;background:var(--navy);color:#dce3ef;margin-top:30px}
+@media(max-width:650px){.filters{grid-template-columns:1fr}.hero h1{font-size:26px}}
+</style>
+</head><body>
+<header><nav><div class="brand">𝑴𝒏3𝒎 Jobs</div><div><a href="#jobs">الوظائف</a><a href="#apply">قدّم الآن</a><a href="#admin">الإدارة</a></div></nav></header>
+<section class="hero"><h1>فرصتك تبدأ من هنا</h1><p>اكتشف فرص العمل في جميع محافظات مصر<br><b>وظائف حضوري وعن بُعد</b></p><a href="#jobs"><button>تصفح الوظائف</button></a></section>
+<main class="wrap">
+<h2 class="section-title" id="jobs">🔎 ابحث عن وظيفة</h2>
+<div class="filters"><input id="search" placeholder="اسم الوظيفة أو الشركة"><select id="gov"><option value="">كل المحافظات</option></select><select id="type"><option value="">كل أنواع العمل</option><option>من مقر الشركة</option><option>عن بُعد</option><option>هجين</option></select></div>
+<div id="jobsList" class="jobs"></div><p id="loadMsg" class="status">جاري تحميل الوظائف...</p>
+<section id="apply" class="formbox"><h2 class="section-title">📝 التقديم على وظيفة</h2><form id="applyForm">
+<input name="name" required placeholder="الاسم بالكامل"><input name="phone" required inputmode="tel" placeholder="رقم الهاتف">
+<select name="governorate" required><option value="">اختر المحافظة</option></select>
+<select name="status" required><option value="">الحالة التعليمية</option><option>طالب</option><option>خريج</option><option>حديث التخرج</option></select>
+<input name="qualification" placeholder="المؤهل / الفرقة الدراسية"><input name="experience" placeholder="الخبرة (إن وجدت)">
+<textarea name="bio" rows="3" placeholder="نبذة قصيرة (اختياري)"></textarea>
+<input name="jobTitle" id="chosenJob" placeholder="الوظيفة المتقدم لها (اختياري)">
+<button type="submit">إرسال طلب التقديم</button></form><p id="applyMsg" class="status"></p></section>
+<section class="panel admin" id="admin"><h2 class="section-title">لوحة الإدارة</h2><div id="loginBox"><p class="muted">دخول الإدارة بالبريد وكلمة المرور المسجلين في Firebase Authentication.</p><form id="loginForm"><input type="email" name="email" required placeholder="البريد الإلكتروني"><input type="password" name="password" required placeholder="كلمة المرور"><button>تسجيل الدخول</button></form></div>
+<div id="adminBox" class="hidden"><p id="adminUser" class="muted"></p><button id="logoutBtn" type="button">تسجيل الخروج</button>
+<h3>إضافة وظيفة</h3><form id="jobForm"><input name="title" required placeholder="اسم الوظيفة"><input name="company" required placeholder="الشركة"><select name="governorate" required><option value="">المحافظة</option></select><select name="type"><option>من مقر الشركة</option><option>عن بُعد</option><option>هجين</option></select><input name="salary" placeholder="الراتب"><input name="deadline" placeholder="آخر موعد للتقديم"><textarea name="description" required placeholder="وصف الوظيفة"></textarea><button>نشر الوظيفة</button></form>
+<h3>الوظائف المنشورة</h3><div id="adminJobs"></div><h3>طلبات التقديم</h3><button id="csvBtn" type="button">تصدير الطلبات CSV</button><div id="applications"></div></div><p id="adminMsg" class="status"></p></section>
+<div class="notice">يتم الاتصال بقاعدة Firebase. لن تعمل القراءة والكتابة حتى تفعيل تسجيل الدخول وضبط قواعد Firestore كما في ملف التعليمات. لا تنشر بيانات المتقدمين قبل ضبط الأمان.</div>
+</main><footer>© 2026 𝑴𝒏3𝒎 Jobs</footer>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script>
+const firebaseConfig={apiKey:"AIzaSyAV_VA170UJ01SjCUm0islv2PQGG59NkXc",authDomain:"mn3m-jobs.firebaseapp.com",projectId:"mn3m-jobs",storageBucket:"mn3m-jobs.firebasestorage.app",messagingSenderId:"974741324572",appId:"1:974741324572:web:fe5801149fdc811875b0d9",measurementId:"G-MHDZVMV4ZX"};
+firebase.initializeApp(firebaseConfig);const auth=firebase.auth(),db=firebase.firestore();
+const govs=["القاهرة","الجيزة","الإسكندرية","الدقهلية","البحر الأحمر","البحيرة","الفيوم","الغربية","الإسماعيلية","المنوفية","المنيا","القليوبية","الوادي الجديد","السويس","أسوان","أسيوط","بني سويف","بورسعيد","دمياط","جنوب سيناء","كفر الشيخ","مطروح","الأقصر","قنا","شمال سيناء","سوهاج","الشرقية"];
+function fill(s){govs.forEach(g=>{let o=document.createElement("option");o.value=g;o.textContent=g;s.appendChild(o)})}
+fill(document.getElementById("gov"));fill(document.querySelector('[name="governorate"]'));fill(document.querySelector('#jobForm [name="governorate"]'));
+let jobs=[],apps=[];
+const $=id=>document.getElementById(id), esc=x=>String(x||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function renderJobs(){let s=$("search").value.toLowerCase(),g=$("gov").value,t=$("type").value;let a=jobs.filter(j=>(!s||((j.title||"")+" "+(j.company||"")+" "+(j.description||"")).toLowerCase().includes(s))&&(!g||j.governorate===g)&&(!t||j.type===t));$("jobsList").innerHTML=a.length?a.map(j=>`<article class="job"><span class="tag">${esc(j.type)}</span><h3>${esc(j.title)}</h3><div class="muted">${esc(j.company)} • ${esc(j.governorate)}</div><p>${esc(j.description)}</p><div class="muted">الراتب: ${esc(j.salary||"غير محدد")} ${j.deadline?"• آخر موعد: "+esc(j.deadline):""}</div><button onclick="document.getElementById('chosenJob').value='${esc(j.title)}';document.getElementById('apply').scrollIntoView({behavior:'smooth'})">قدّم الآن</button></article>`).join(""):'<p class="muted">لا توجد وظائف منشورة حاليًا.</p>'}
+["search","gov","type"].forEach(id=>$(id).addEventListener("input",renderJobs));
+db.collection("jobs").orderBy("createdAt","desc").onSnapshot(s=>{jobs=s.docs.map(d=>({id:d.id,...d.data()}));renderJobs();$("loadMsg").textContent="تم تحديث الوظائف من قاعدة البيانات.";},e=>$("loadMsg").textContent="تعذر تحميل الوظائف: "+e.message);
+$("applyForm").addEventListener("submit",async e=>{e.preventDefault();let b=$("applyMsg");b.textContent="جارٍ إرسال الطلب...";let d=Object.fromEntries(new FormData(e.target));d.createdAt=firebase.firestore.FieldValue.serverTimestamp();d.status="جديد";try{await db.collection("applications").add(d);b.textContent="تم إرسال طلبك بنجاح.";e.target.reset()}catch(err){b.textContent="لم يتم الإرسال: "+err.message}});
+$("loginForm").addEventListener("submit",async e=>{e.preventDefault();let d=Object.fromEntries(new FormData(e.target));try{await auth.signInWithEmailAndPassword(d.email,d.password)}catch(err){$("adminMsg").textContent="تعذر تسجيل الدخول: "+err.message}});
+auth.onAuthStateChanged(u=>{$("loginBox").classList.toggle("hidden",!!u);$("adminBox").classList.toggle("hidden",!u);if(u){$("adminUser").textContent="تم تسجيل الدخول: "+u.email;watchAdmin()}});
+$("logoutBtn").onclick=()=>auth.signOut();
+function watchAdmin(){db.collection("jobs").orderBy("createdAt","desc").onSnapshot(s=>{$("adminJobs").innerHTML=s.docs.map(d=>`<div class="admin-row">${esc(d.data().title)} — <button onclick="deleteJob('${d.id}')">حذف</button></div>`).join("")||"لا توجد وظائف"});db.collection("applications").orderBy("createdAt","desc").onSnapshot(s=>{apps=s.docs.map(d=>({id:d.id,...d.data()}));$("applications").innerHTML=apps.map(a=>`<div class="admin-row"><b>${esc(a.name)}</b> — ${esc(a.phone)} — ${esc(a.governorate)}<div class="muted">${esc(a.jobTitle)} | ${esc(a.status)}</div><select onchange="setStatus('${a.id}',this.value)"><option ${a.status==="جديد"?"selected":""}>جديد</option><option ${a.status==="قيد المراجعة"?"selected":""}>قيد المراجعة</option><option ${a.status==="تم التواصل"?"selected":""}>تم التواصل</option><option ${a.status==="مرفوض"?"selected":""}>مرفوض</option></select></div>`).join("")||"لا توجد طلبات بعد."})}
+window.deleteJob=async id=>{if(confirm("حذف الوظيفة؟"))try{await db.collection("jobs").doc(id).delete()}catch(e){$("adminMsg").textContent=e.message}};
+window.setStatus=async(id,status)=>{try{await db.collection("applications").doc(id).update({status})}catch(e){$("adminMsg").textContent=e.message}};
+$("jobForm").addEventListener("submit",async e=>{e.preventDefault();let d=Object.fromEntries(new FormData(e.target));d.createdAt=firebase.firestore.FieldValue.serverTimestamp();try{await db.collection("jobs").add(d);e.target.reset();$("adminMsg").textContent="تم نشر الوظيفة."}catch(err){$("adminMsg").textContent="تعذر النشر: "+err.message}});
+$("csvBtn").onclick=()=>{let cols=["name","phone","governorate","status","qualification","experience","jobTitle","bio"];let csv=[cols.join(","),...apps.map(a=>cols.map(k=>'"'+String(a[k]||"").replace(/"/g,'""')+'"').join(","))].join("\n");let blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="mn3m-applications.csv";a.click();URL.revokeObjectURL(url)};
+</script></body></html>
